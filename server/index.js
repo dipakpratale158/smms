@@ -51,13 +51,7 @@ app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 3001;
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get('*',function(_,res){
-  res.sendFile(path.join(__dirname,'./client/build/index.html'),
-    function(err){
-      res.status(500).send(err);
-    });
-});
+
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
