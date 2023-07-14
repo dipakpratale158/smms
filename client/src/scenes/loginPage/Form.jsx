@@ -1,20 +1,20 @@
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useState } from "react";
 import {
   Box,
   Button,
   TextField,
-  Typography,
   useMediaQuery,
+  Typography,
   useTheme,
 } from "@mui/material";
-import FlexBetween from "components/FlexBetween";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
-import { useState } from "react";
-import Dropzone from "react-dropzone";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setLogin } from "state";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLogin } from "state";
+import Dropzone from "react-dropzone";
+import FlexBetween from "components/FlexBetween";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -54,7 +54,7 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
-  const API_URL=''
+
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
     const formData = new FormData();
@@ -64,7 +64,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      `${API_URL}/auth/register`,
+      "http://localhost:3001/auth/register",
       {
         method: "POST",
         body: formData,
@@ -79,8 +79,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    
-    const loggedInResponse = await fetch(`${API_URL}/auth/login`, {
+    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
